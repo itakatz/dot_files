@@ -16,10 +16,17 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
+            local capabilities = require('cmp_nvim_lsp').default_capabilities()
             local lspconfig = require("lspconfig")
-            lspconfig.lua_ls.setup({})
-            lspconfig.pyright.setup({})
-            lspconfig.bashls.setup({})
+            lspconfig.lua_ls.setup({
+                capabilities = capabilities
+            })
+            lspconfig.pyright.setup({
+                capabilities = capabilities
+            })
+            lspconfig.bashls.setup({
+                capabilities = capabilities
+            })
             -- keymaps taken from: https://github.com/neovim/nvim-lspconfig (as suggested in https://www.youtube.com/watch?v=S-xzYgTLVJE&ab_channel=typecraft)
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
             vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, {})
