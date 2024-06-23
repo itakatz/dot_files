@@ -1,6 +1,10 @@
 return {
     {
-        "hrsh7th/cmp-nvim-lsp",
+       -- cmp sources plugins
+       "hrsh7th/cmp-nvim-lsp",
+       "hrsh7th/cmp-buffer",
+       "hrsh7th/cmp-path"
+       --"hrsh7th/cmp-nvim-lua",
     },
     {
         "L3MON4D3/LuaSnip",
@@ -10,8 +14,10 @@ return {
         },
     },
     {
+        -- see some info here: https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
         "hrsh7th/nvim-cmp",
         config = function()
+            --vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
             local cmp = require("cmp")
             require("luasnip.loaders.from_vscode").lazy_load()
             cmp.setup({
@@ -37,14 +43,20 @@ return {
                     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 }),
                 sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
+                    -- available keywords: 
+                    --  "priority" sets the order in the completion list (without it, the order here is used)
+                    --  "keyword_length" how many characters needed to start the query
+                    -- NOTE grouping does not seem to work, comment it out
+                    --{
+                    { name = 'nvim_lsp' }, --option = {keyword_length = 1} },
+                    { name = 'luasnip' },  --option = {keyword_length = 2} }, -- For luasnip users.
+                    { name = 'buffer' },   --option = {keyword_length = 2} },
+                        --{ name = 'nvim_lua' },
+                    { name = 'path' },
                     -- { name = 'vsnip' }, -- For vsnip users.
-                    { name = 'luasnip' }, -- For luasnip users.
                     -- { name = 'ultisnips' }, -- For ultisnips users.
                     -- { name = 'snippy' }, -- For snippy users.
-                }, {
-                        { name = 'buffer' },
-                    })
+                })
             })
         end
     }
