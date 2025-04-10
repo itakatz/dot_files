@@ -12,5 +12,8 @@
   - `sudo ./nvim.appimage --appimage-extract`
   - `sudo ln -s squashfs-root/AppRun nvim`
 - install `npm` (for Mason to work):
-  - `sudo apt install nodejs npm`
+  - ~`sudo apt install nodejs npm`~
+  - (Better option):
+    -  Install version manager `nvm`, see https://github.com/nvm-sh/nvm (and reload `.bnashrc`)
+    -  Install `npm` and `node` using `nvm install --lts`
 - setup: `ln -s ~/git_repos/dot_files/.config/nvim ~/.config/nvim` 
