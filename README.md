@@ -4,6 +4,7 @@
 - clone the plugin manager: `git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm`
 - Install the plugins using tmux's `prefix + I`
 - Install cattpuccin colorscheme: `https://github.com/catppuccin/tmux?tab=readme-ov-file#installation`
+- Install Nerd Fonts for the windows terminal, e.g "SauceCodePro Nerd Font" from `https://www.nerdfonts.com/font-downloads`
 ## Nvim
 - install:
   - `wget https://github.com/neovim/neovim/releases/download/v0.9.5/nvim.appimage`
