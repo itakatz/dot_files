@@ -7,3 +7,9 @@ vim.cmd("set mouse=")
 vim.cmd("nnoremap <tab> <c-w><c-w>")
 --vim.cmd("hi CursorLine cterm=NONE ctermbg=24 ctermfg=white guibg=darkred guifg=white")
 vim.g.mapleader = " "
+
+-- Save file with Leader key
+vim.api.nvim_set_keymap('n', '<Leader>w', ':w<CR>', { noremap = true, silent = true })
+
+-- Quit Neovim with Leader key
+vim.api.nvim_set_keymap('n', '<Leader>q', ':q<CR>', { noremap = true, silent = true })
