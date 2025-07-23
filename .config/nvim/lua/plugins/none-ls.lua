@@ -1,3 +1,5 @@
+local cfg = require("config")
+
 return {
 	"nvimtools/none-ls.nvim",
 	dependencies = {
@@ -6,6 +8,7 @@ return {
 	config = function()
 		local null_ls = require("null-ls")
 		null_ls.setup({
+            debug = cfg.null_ls_debug,
 			sources = {
 				require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
 				require("none-ls.formatting.ruff_format"),
