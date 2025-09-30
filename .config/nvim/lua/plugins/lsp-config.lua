@@ -19,15 +19,19 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local lspconfig = require("lspconfig")
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			capabilities.general = capabilities.general or {} -- Ensure general table exists
 			capabilities.general.positionEncodings = { "utf-16" } --, "utf-8", "utf-32" } -- Prioritize UTF-16
 
-			lspconfig.lua_ls.setup({ capabilities = capabilities })
-			lspconfig.bashls.setup({ capabilities = capabilities })
-			lspconfig.pyright.setup({
-				capabilities = capabilities,
+            -- using 'lspconfig = require("lspconfig")' etc. is deprecated, see :help lspconfig-nvim-0.11 
+            vim.lsp.config("lua_ls",  { capabilities = capabilities })
+            vim.lsp.config("bash_ls", { capabilities = capabilities })
+            vim.lsp.config("pyright", { capabilities = capabilities })
+
+            --local lspconfig = require("lspconfig")
+			--lspconfig.lua_ls.setup( { capabilities = capabilities })
+			--lspconfig.bashls.setup( { capabilities = capabilities })
+			--lspconfig.pyright.setup({ capabilities = capabilities })
 				--[[
                 settings = {
                     pyright = {
@@ -40,10 +44,11 @@ return {
                             ignore = { "*" },
                         },
                     },
-                },]]
-				--
-			})
-			-- see https://docs.astral.sh/ruff/editors/setup/#__tabbed_1_2
+                },
+                }) 
+                ]]-- 
+
+            -- see https://docs.astral.sh/ruff/editors/setup/#__tabbed_1_2
 			--lspconfig.ruff.setup({})
 			-- Disable hover: see https://hwisnu.bearblog.dev/neovim-config-ruff-linter-pyright-hover-info/
 			local on_attach_ruff = function(client, _)
