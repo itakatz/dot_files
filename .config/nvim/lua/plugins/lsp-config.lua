@@ -7,12 +7,12 @@ return {
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
-        -- mason-lspconfig has a 'auto-enable' feature; disable it, for more control
-        -- see https://github.com/mason-org/mason-lspconfig.nvim?tab=readme-ov-file#automatically-enable-installed-servers
+		-- mason-lspconfig has a 'auto-enable' feature; disable it, for more control
+		-- see https://github.com/mason-org/mason-lspconfig.nvim?tab=readme-ov-file#automatically-enable-installed-servers
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = { "pyright", "bashls", "lua_ls", "ruff" },
-                automatic_enable = false
+				automatic_enable = false,
 			})
 		end,
 	},
@@ -23,16 +23,16 @@ return {
 			capabilities.general = capabilities.general or {} -- Ensure general table exists
 			capabilities.general.positionEncodings = { "utf-16" } --, "utf-8", "utf-32" } -- Prioritize UTF-16
 
-            -- using 'lspconfig = require("lspconfig")' etc. is deprecated, see :help lspconfig-nvim-0.11 
-            vim.lsp.config("lua_ls",  { capabilities = capabilities, diagnostics = {globals = {"vim"}} })
-            vim.lsp.config("bashls", { capabilities = capabilities })
-            vim.lsp.config("pyright", { capabilities = capabilities })
+			-- using 'lspconfig = require("lspconfig")' etc. is deprecated, see :help lspconfig-nvim-0.11
+			vim.lsp.config("lua_ls", { capabilities = capabilities, diagnostics = { globals = { "vim" } } })
+			vim.lsp.config("bashls", { capabilities = capabilities })
+			vim.lsp.config("pyright", { capabilities = capabilities })
 
-            --local lspconfig = require("lspconfig")
+			--local lspconfig = require("lspconfig")
 			--lspconfig.lua_ls.setup( { capabilities = capabilities })
 			--lspconfig.bashls.setup( { capabilities = capabilities })
 			--lspconfig.pyright.setup({ capabilities = capabilities })
-				--[[
+			--[[
                 settings = {
                     pyright = {
                         -- Using Ruff's import organizer
@@ -45,10 +45,11 @@ return {
                         },
                     },
                 },
-                }) 
-                ]]-- 
+                })
+                ]]
+			--
 
-            -- see https://docs.astral.sh/ruff/editors/setup/#__tabbed_1_2
+			-- see https://docs.astral.sh/ruff/editors/setup/#__tabbed_1_2
 			--lspconfig.ruff.setup({})
 			-- Disable hover: see https://hwisnu.bearblog.dev/neovim-config-ruff-linter-pyright-hover-info/
 			local on_attach_ruff = function(client, _)
@@ -72,20 +73,22 @@ return {
 				},
 			})
 			vim.lsp.enable("ruff")
-            vim.lsp.enable("lua_ls")
-            vim.lsp.enable("bashls")
-            vim.lsp.enable("pyright")
+			vim.lsp.enable("lua_ls")
+			vim.lsp.enable("bashls")
+			vim.lsp.enable("pyright")
 
 			-- see https://github.com/neovim/neovim/issues/33073
 			vim.diagnostic.config({
-				virtual_lines = {current_line = true},
+				virtual_lines = { current_line = true },
 				virtual_text = true,
 			})
 
 			-- keymaps taken from: https://github.com/neovim/nvim-lspconfig (as suggested in https://www.youtube.com/watch?v=S-xzYgTLVJE&ab_channel=typecraft)
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, {})
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+			vim.keymap.set("n", "gd", function()
+				vim.lsp.buf.definition({ reuse_win = true })
+			end, {})
 			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 			vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, {}) -- to expand too long lsp warnings
