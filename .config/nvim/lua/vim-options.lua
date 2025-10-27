@@ -5,8 +5,9 @@ vim.cmd("set shiftwidth=4")
 vim.cmd("set number")
 vim.cmd("set mouse=")
 vim.g.mapleader = " "
+vim.opt.winborder = "rounded"
 
-vim.keymap.set("n", "<Tab>", "<C-w>w", { desc = "Move to next window" }) -- vim.cmd("nnoremap <tab> <c-w>w")
+vim.keymap.set("n", "<Tab>", "<C-w>w", { desc = "Move to next window" })       -- vim.cmd("nnoremap <tab> <c-w>w")
 vim.keymap.set("n", "<S-Tab>", "<C-w>W", { desc = "Move to previous window" }) -- vim.cmd("nnoremap <s-tab> <c-w>W")
 
 -- Test with a lua function
@@ -31,34 +32,34 @@ vim.keymap.set("n", "ZZ", "<C-w>=", { desc = "Resize all windows evenly" })
 -- keymap to run current python script (in current buffer) in a floating tmux window
 -- TODO currently I assume we run in a uv-managed project, so "uv run" is available. consider treating other cases as well
 vim.api.nvim_set_keymap("n", "<leader>r", "", {
-	noremap = true,
-	silent = false,
-	callback = function()
-		local current_file_path = vim.fn.expand("%:t")
-		if current_file_path:sub(-3) == ".py" then
-			local args = vim.fn.input("Enter input args: ")
-			local command = "silent !tmux display-popup -w '80\\%' -h '60\\%' -d '\\#{pane_current_path}' uv run "
-				.. current_file_path
-				.. " "
-				.. args
-			-- local command = "silent !tmux display-popup -w '80\\%' -h '60\\%' -d '\\#{pane_current_path}' python "
-			-- print(command)
-			vim.cmd(command)
-		elseif current_file_path:sub(-3) == ".sh" then
-			local command = "silent !tmux display-popup -w '80\\%' -h '60\\%' -d '\\#{pane_current_path}' bash "
-				.. current_file_path
-				.. " "
-			vim.cmd(command)
-		end
-	end,
+    noremap = true,
+    silent = false,
+    callback = function()
+        local current_file_path = vim.fn.expand("%:t")
+        if current_file_path:sub(-3) == ".py" then
+            local args = vim.fn.input("Enter input args: ")
+            local command = "silent !tmux display-popup -w '80\\%' -h '60\\%' -d '\\#{pane_current_path}' uv run "
+                .. current_file_path
+                .. " "
+                .. args
+            -- local command = "silent !tmux display-popup -w '80\\%' -h '60\\%' -d '\\#{pane_current_path}' python "
+            -- print(command)
+            vim.cmd(command)
+        elseif current_file_path:sub(-3) == ".sh" then
+            local command = "silent !tmux display-popup -w '80\\%' -h '60\\%' -d '\\#{pane_current_path}' bash "
+                .. current_file_path
+                .. " "
+            vim.cmd(command)
+        end
+    end,
 })
 
 vim.api.nvim_set_keymap("n", "<leader>R", "", {
-	noremap = true,
-	silent = false,
-	callback = function()
-		local command = "silent !tmux display-popup -w '90\\%' -h '80\\%' -d '\\#{pane_current_path}'"
-		-- print(command)
-		vim.cmd(command)
-	end,
+    noremap = true,
+    silent = false,
+    callback = function()
+        local command = "silent !tmux display-popup -w '90\\%' -h '80\\%' -d '\\#{pane_current_path}'"
+        -- print(command)
+        vim.cmd(command)
+    end,
 })

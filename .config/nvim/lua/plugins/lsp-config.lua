@@ -24,8 +24,8 @@ return {
 			capabilities.general.positionEncodings = { "utf-16" } --, "utf-8", "utf-32" } -- Prioritize UTF-16
 
             -- using 'lspconfig = require("lspconfig")' etc. is deprecated, see :help lspconfig-nvim-0.11 
-            vim.lsp.config("lua_ls",  { capabilities = capabilities })
-            vim.lsp.config("bash_ls", { capabilities = capabilities })
+            vim.lsp.config("lua_ls",  { capabilities = capabilities, diagnostics = {globals = {"vim"}} })
+            vim.lsp.config("bashls", { capabilities = capabilities })
             vim.lsp.config("pyright", { capabilities = capabilities })
 
             --local lspconfig = require("lspconfig")
@@ -72,12 +72,13 @@ return {
 				},
 			})
 			vim.lsp.enable("ruff")
-			-- If I call "lspconfig.lua_ls.setup" above, no need to enable (can be used to disable by setting the flag to "false")
-            -- vim.lsp.enable("lua_ls", true) -- DEBUG
+            vim.lsp.enable("lua_ls")
+            vim.lsp.enable("bashls")
+            vim.lsp.enable("pyright")
 
 			-- see https://github.com/neovim/neovim/issues/33073
 			vim.diagnostic.config({
-				-- virtual_lines = true,
+				virtual_lines = {current_line = true},
 				virtual_text = true,
 			})
 
