@@ -79,7 +79,7 @@ return {
 
 			-- see https://github.com/neovim/neovim/issues/33073
 			vim.diagnostic.config({
-				virtual_lines = { current_line = true },
+				virtual_lines = false, --{ current_line = false },
 				virtual_text = true,
 			})
 
@@ -92,6 +92,10 @@ return {
 			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, {})
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
 			vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, {}) -- to expand too long lsp warnings
+            --- add a keymap for my custom "disable pyright warning" function
+            local utils = require("utils")
+            vim.keymap.set('n', '<leader>pi', utils.pyright_ignore_action, { desc = 'Ignore Pyright Diagnostic' })
+
 		end,
 	},
 }
