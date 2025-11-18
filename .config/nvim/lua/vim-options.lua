@@ -24,6 +24,7 @@ vim.keymap.set("n", "<Leader>t", runlua, { desc = "my lua script" })
 -- add window zoom-in and zoom-out keys, TODO it doesn't keep original layout!
 vim.keymap.set("n", "Zz", "<C-w>|<C-w>_", { desc = "Expand current window to full screen" })
 vim.keymap.set("n", "ZZ", "<C-w>=", { desc = "Resize all windows evenly" })
+vim.keymap.set("n", "<F3>", ":set hlsearch!<CR>", { desc = "Toggle search result highlight" })
 
 -- I tried these, but doesn't seem too useful
 --vim.keymap.set("n", "<Leader>w", ":w<CR>", { silent = true })
