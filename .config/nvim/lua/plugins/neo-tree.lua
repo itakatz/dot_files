@@ -16,8 +16,9 @@ return {
             },
             window = {
                 mappings = {
-                    -- Disables Neo-tree's default behavior for the tab key
-                    ["<Tab>"] = "none", 
+                    -- Re-assign Neo-tree's Tab key, since I use it to move between split windows
+                    ["<Tab>"] = "none",
+                    ["<C-t>"] = "select",
                 }
             }
         })
