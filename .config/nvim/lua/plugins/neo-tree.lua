@@ -13,6 +13,12 @@ return {
                 filtered_items = {
                   hide_gitignored = false
                 }
+            },
+            window = {
+                mappings = {
+                    -- Disables Neo-tree's default behavior for the tab key
+                    ["<Tab>"] = "none", 
+                }
             }
         })
     end

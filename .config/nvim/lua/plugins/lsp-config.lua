@@ -59,6 +59,23 @@ return {
 				end
 			end
 			vim.lsp.config("ruff", {
+                root_markers = { ".git", "pyproject.toml" },
+
+                -- These Gemini suggestions do not work! see https://github.com/neovim/nvim-lspconfig/blob/master/doc/lspconfig.txt
+                --[[ 
+                root_dir = function(bufnr)
+                    -- Get the absolute path of the file in the buffer
+                    local path = vim.api.nvim_buf_get_name(bufnr)
+                    if path == "" then return nil end
+                    print(path)
+                    return vim.fs.root(path, { ".git", "pyproject.toml" })
+                end,
+                root_dir = function(path)
+                    -- Use ".git" first so that ruff doesn't see itamar/ as root (since it also has a "pyproject.toml" file)
+                    return vim.fs.root(path, { ".git", "pyproject.toml"}) --, "setup.py" }) -- I don't use "setup.py" so exclude from list. Consider adding "ruff.toml"
+                end,
+                ]]
+
 				on_attach = on_attach_ruff,
 				init_options = {
 					settings = {
